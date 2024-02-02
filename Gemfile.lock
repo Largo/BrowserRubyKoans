@@ -1,0 +1,28 @@
+PATH
+  remote: ruby.wasm/packages/gems/js
+  specs:
+    js (2.5.0)
+
+PATH
+  remote: ruby.wasm
+  specs:
+    ruby_wasm (2.5.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    kramdown (2.4.0)
+      rexml
+    rexml (3.2.6)
+
+PLATFORMS
+  ruby
+  x86_64-linux
+
+DEPENDENCIES
+  js!
+  kramdown (~> 2.4)
+  ruby_wasm!
+
+BUNDLED WITH
+   2.5.5
