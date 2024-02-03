@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ruby IRB in Browser</title>
+    <title>Run Ruby code in browser</title>
     <script src="browser.script.iife.js"></script>
+    <link rel="stylesheet" href="assets/codemirror.css">
+    <script src="assets/codemirror.js"></script>
+    <script src="assets/codemirror-ruby.js"></script>
+  
     <style>
         #output {
             white-space: pre-wrap;
@@ -44,8 +48,15 @@
   
   <script async>
     window.addEventListener('load', async function () {
+        var code_area = document.getElementById("ruby-code")
+        var editor = CodeMirror.fromTextArea(code_area, {
+            lineNumbers: true,
+            mode: "text/x-ruby",
+            matchBrackets: true,
+            indentUnit: 4
+        });
         document.getElementById("run-code").addEventListener("click", async (e) => {
-            var code_area = document.getElementById("ruby-code");
+            editor.save()
             var output_div = document.getElementById("output");
             var code = `
                 $response = ""
@@ -59,7 +70,6 @@
                 output_div.innerHTML = response.toString();
             }).catch((response) => {
                 output_div.innerHTML = response.toString();
-
             });
         });
     });
