@@ -1,5 +1,6 @@
 module JS
   class RequireRemote
+   
     # Execute the body of the response and record the URL.
     class Evaluator
       def evaluate(code, filename, final_url)

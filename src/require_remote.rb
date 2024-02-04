@@ -72,7 +72,7 @@ module JS
 
       evaluate(code, location.path, final_url)
 
-      {code:, location:, final_url:}
+      return {code:, location:, final_url:}
     end
 
     private
