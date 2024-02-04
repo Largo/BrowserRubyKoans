@@ -47,29 +47,15 @@ module JS
         # Do not load the same URL twice.
         return false if @evaluator.evaluated?(location.url[:href].to_s)
 
-        puts location.url
         if has_file?(location.url)
-          puts "from cache"
           code = retrieve_file(location.url[:href].to_s)
           @evaluator.evaluate(code, location.path.to_s, location.url[:href].to_s)
         else 
-          puts "reload"
           cache(super(relative_feature))
         end
       end
 
       def cache(result)
-        if result == false
-          puts "false"
-          return
-        end
-        # TODO final url
-        #results.each do |result|
-          name = result[:location].url
-          code = result[:code]
-          save_file(name, code)
-        # p result, code
-        #end
         true
       end
 

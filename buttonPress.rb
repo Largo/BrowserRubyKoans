@@ -13,8 +13,6 @@ def pressButton
         super(objects)
     end
 
-    puts __FILE__
-
     yield
 
     require_relative "/koans/path_to_enlightenment"
