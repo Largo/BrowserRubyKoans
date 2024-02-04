@@ -4,46 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Run Ruby code in browser</title>
+    <link rel="stylesheet" href="assets/app.css">
     <script src="browser.script.iife.js"></script>
+    <script src="main.rb" type="text/ruby" data-eval="async"></script>
     <link rel="stylesheet" href="assets/codemirror.css">
     <script src="assets/codemirror.js"></script>
     <script src="assets/codemirror-ruby.js"></script>
-    <style>
-        #output {
-            white-space: pre-wrap;
-            margin-top: 20px;
-        }
-    </style>
 </head>
 <body>
     <h1>Code Runner</h1>
     <textarea id="ruby-code" rows="10" cols="50"></textarea><br>
     <button id="run-code">Run Code</button>
     <div id="output"></div>
-
-    <!-- Ruby.wasm and your script -->
-    <script type="text/ruby" data-eval="async">
-      require 'js'
-
-      require 'js/require_remote'
-
-      module Kernel
-        alias original_require_relative require_relative
-  
-        # The require_relative may be used in the embedded Gem.
-        # First try to load from the built-in filesystem, and if that fails,
-        # load from the URL.
-        def require_relative(path)
-          caller_path = caller_locations(1, 1).first.absolute_path || ''
-          dir = File.dirname(caller_path)
-          file = File.absolute_path(path, dir)
-  
-          original_require_relative(file)
-        rescue LoadError
-          JS::RequireRemote.instance.load(path)
-        end
-      end
-  </script>
   
   <script async>
     window.addEventListener('load', async function () {
@@ -58,8 +30,6 @@
             editor.save()
             var output_div = document.getElementById("output");
             var code = `
-                require 'stringio'
-
                 $response = ""
                 def puts(*objects)
                     objects.each do |text|
@@ -74,6 +44,8 @@
                     super(objects)
                 end
                 ${code_area.value}
+                require_relative "/koans/path_to_enlightenment"
+                Neo::ThePath.new.walk
                 $response
             `.trim()
             const text = window.rubyVM.evalAsync(code).then((response) => {

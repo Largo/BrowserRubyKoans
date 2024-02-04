@@ -98,15 +98,20 @@ module Neo
   module Color
     #shamelessly stolen (and modified) from redgreen
     COLORS = {
-      :clear   => 0,  :black   => 30, :red   => 31,
-      :green   => 32, :yellow  => 33, :blue  => 34,
-      :magenta => 35, :cyan    => 36,
-    }
+      :clear   => 0,  # Typically, clear isn't represented with a color. It might mean resetting to default.
+      :black   => '#000000', 
+      :red     => '#FF0000',
+      :green   => '#00FF00',
+      :yellow  => '#FFFF00',
+      :blue    => '#0000FF',
+      :magenta => '#FF00FF',
+      :cyan    => '#00FFFF',
+  }
 
     module_function
 
     COLORS.each do |color, value|
-      module_eval "def #{color}(string); colorize(string, #{value}); end"
+      module_eval "def #{color}(string); colorize(string, '#{value}'); end"
       module_function color
     end
 
@@ -119,7 +124,15 @@ module Neo
     end
 
     def color(color_value)
-      "\e[#{color_value}m"
+      #"\e[#{color_value}m"
+
+
+      if color_value == COLORS[:clear] 
+        "</span>"
+      else
+        "<span style=\"color:#{color_value}\">"
+      end
+      
     end
 
     def use_colors?

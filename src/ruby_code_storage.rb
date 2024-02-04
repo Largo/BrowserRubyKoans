@@ -1,22 +1,34 @@
+require_relative "./require_remote/evaluator"
+
+
 class RubyCodeStorage
+    include Singleton
+
     def initialize
       @storage = JS.global.localStorage
+      base_url = JS.global[:URL].new(JS.global[:location][:href])
+      @resolver = JS::RequireRemote.URLResolver.new(base_url)
+      @evaluator = JS::RequireRemote.Evaluator.new
     end
   
     def save_file(name, content)
       @storage.setItem(name, content)
+    end
+
+    def has_file?(name)
+      @storage.getItem(name).nil? === false
     end
   
     def retrieve_file(name)
       @storage.getItem(name)
     end
 
-    def evaluate_file(name)
-      filename = name
-      final_url = name
-      code = retrieve_file(name)
-      JS.RequireRemote.evaluate(code, filename, final_url)
-    end
+    # def evaluate_file(name)
+    #   filename = name
+    #   final_url = name
+    #   code = retrieve_file(name)
+    #   @evaluator.evaluate(code, filename, final_url)
+    # end
   
     def delete_file(name)
       @storage.removeItem(name)
@@ -29,6 +41,38 @@ class RubyCodeStorage
         files << key if key.to_s.end_with?('.rb') # Assuming we only want to list Ruby files
       end
       files
+    end
+
+    def load(relative_feature)
+#   filename = name
+    #   final_url = name
+    #   code = retrieve_file(name)
+    #   @evaluator.evaluate(code, filename, final_url)
+      #raise LoadError.new "cannot load such url -- #{response[:status]} #{location.url}"
+      location = @resolver.get_location(relative_feature)
+
+      # Do not load the same URL twice.
+      return false if @evaluator.evaluated?(location.url[:href].to_s)
+
+      #response = JS.global.fetch(location.url).await
+      #unless response[:status].to_i == 200
+      #  raise LoadError.new "cannot load such url -- #{response[:status]} #{location.url}"
+      #end
+
+      unless has_file(location.url[:href])
+        raise LoadError.new "cannot load such url -- #{location.url}"
+      end
+
+      final_url = location.url[:href].to_s
+
+      # Do not evaluate the same URL twice.
+      return false if @evaluator.evaluated?(final_url)
+
+      code = retrieve_file(final_url)
+      #code = response.text().await.to_s
+
+      evaluate(code, location.filename, final_url)
+
     end
   end
   
