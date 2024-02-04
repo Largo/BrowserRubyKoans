@@ -2,7 +2,7 @@ require 'js'
 require 'js/require_remote'
 
 module Kernel
-  alias original_require_relative require_relative
+  #alias original_require_relative require_relative
 
   # The require_relative may be used in the embedded Gem.
   # First try to load from the built-in filesystem, and if that fails,
@@ -39,8 +39,8 @@ module Kernel
 
     original_require_relative(file)
   rescue LoadError
-    p caller_locations(1, 1)
-    if not path.start_with?("/koans") or caller_path.start_with?("/koans")
+    file_required_from = caller(2..2).first&.split(':')&.first.to_s
+    if not file_required_from.start_with?("/koans")
       JS::RequireRemote.instance.load(path)
     else
       begin 

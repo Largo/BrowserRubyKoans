@@ -6,9 +6,6 @@ class AboutAsserts < Neo::Koan
 
   # We shall contemplate truth by testing reality, via asserts.
   def test_assert_truth
-    p "TEST file, about assets", __dir__, __FILE__
-    p File.expand_path(__FILE__)
-
     assert false                # This should be true
   end
 

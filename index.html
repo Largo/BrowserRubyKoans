@@ -6,7 +6,6 @@
     <title>Run Ruby code in browser</title>
     <link rel="stylesheet" href="assets/app.css">
     <script src="browser.script.iife.js"></script>
-    <script src="main.rb" type="text/ruby" data-eval="async"></script>
     <link rel="stylesheet" href="assets/codemirror.css">
     <script src="assets/codemirror.js"></script>
     <script src="assets/codemirror-ruby.js"></script>
@@ -30,23 +29,16 @@
             editor.save()
             var output_div = document.getElementById("output");
             var code = `
-                $response = ""
-                def puts(*objects)
-                    objects.each do |text|
-                        $response += text.to_s + "\n"
-                    end
-                    super(objects)
+                require 'js/require_remote'
+                module Kernel
+                    alias original_require_relative require_relative
+                    def require_relative(path) = JS::RequireRemote.instance.load(path)
                 end
-                def p(*objects)
-                    objects.each do |text|
-                        $response += text.to_s + "\n"
-                    end
-                    super(objects)
-                end
-                ${code_area.value}
-                require_relative "/koans/path_to_enlightenment"
-                Neo::ThePath.new.walk
-                $response
+                require_relative 'main.rb'
+                require_relative 'buttonPress.rb'
+                pressButton {
+                    ${code_area.value}
+                }
             `.trim()
             const text = window.rubyVM.evalAsync(code).then((response) => {
                 output_div.innerHTML = response.toString();
