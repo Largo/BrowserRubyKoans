@@ -17,7 +17,7 @@
     <div id="output"></div>
   
   <script async>
-    window.addEventListener('load', async function () {
+    window.addEventListener('DOMContentLoaded', async function () {
         var code_area = document.getElementById("ruby-code")
         var editor = CodeMirror.fromTextArea(code_area, {
             lineNumbers: true,
@@ -25,7 +25,8 @@
             matchBrackets: true,
             indentUnit: 4
         });
-        document.getElementById("run-code").addEventListener("click", async (e) => {
+        
+        function clickRunButton() {
             editor.save()
             var output_div = document.getElementById("output");
             var code = `
@@ -45,6 +46,11 @@
             }).catch((response) => {
                 output_div.innerHTML = response.toString();
             });
+
+        }
+        var checkInterval = setInterval(() => window.rubyVM !== undefined && (clearInterval(checkInterval), clickRunButton()), 500);
+        document.getElementById("run-code").addEventListener("click", async (e) => {
+            clickRunButton();
         });
     });
   </script>
