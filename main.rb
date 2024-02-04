@@ -18,31 +18,38 @@ module Kernel
   end
 end
 
-require_relative "src/ruby_code_storage"
 
 # TODO: make sure require_relative knows where the basefolder is, so this file does not need to be in the topfolder.
 
 require_relative "src/require_remote"
 
-# module Kernel
-#   alias original_require_relative require_relative
+require_relative "src/ruby_code_storage"
 
-#   # The require_relative may be used in the embedded Gem.
-#   # First try to load from the built-in filesystem, and if that fails,
-#   # load from the URL.
-#   def require_relative(path)
-#     caller_path = caller_locations(1, 1).first.absolute_path || ''
-#     dir = File.dirname(caller_path)
-#     file = File.absolute_path(path, dir)
 
-#     original_require_relative(file)
-#   rescue LoadError
-#     begin 
-#      # RubyCodeStorage.instance.load(path)
-#     rescue LoadError
-#       JS::RequireRemote.instance.load(path)
-#     end
-#   end
-# end
+# overwrite again. this is a workaround
+
+module Kernel
+  # The require_relative may be used in the embedded Gem.
+  # First try to load from the built-in filesystem, and if that fails,
+  # load from the URL.
+  def require_relative(path)
+    caller_path = caller_locations(1, 1).first.absolute_path || ''
+    dir = File.dirname(caller_path)
+    file = File.absolute_path(path, dir)
+
+    original_require_relative(file)
+  rescue LoadError
+    p caller_locations(1, 1)
+    if not path.start_with?("/koans") or caller_path.start_with?("/koans")
+      JS::RequireRemote.instance.load(path)
+    else
+      begin 
+        RubyCodeStorage.instance.load(path)
+      rescue LoadError
+        RubyCodeStorage.instance.cache(JS::RequireRemote.instance.load(path))
+      end
+    end
+  end
+end
 
 

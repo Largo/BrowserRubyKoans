@@ -1,5 +1,5 @@
 require_relative "./require_remote/evaluator"
-
+require_relative "./require_remote/url_resolver"
 
 class RubyCodeStorage
     include Singleton
@@ -7,8 +7,8 @@ class RubyCodeStorage
     def initialize
       @storage = JS.global.localStorage
       base_url = JS.global[:URL].new(JS.global[:location][:href])
-      @resolver = JS::RequireRemote.URLResolver.new(base_url)
-      @evaluator = JS::RequireRemote.Evaluator.new
+      @evaluator = JS::RequireRemote::Evaluator.new
+      @resolver = JS::RequireRemote::URLResolver.new(base_url)
     end
   
     def save_file(name, content)
@@ -58,8 +58,7 @@ class RubyCodeStorage
       #unless response[:status].to_i == 200
       #  raise LoadError.new "cannot load such url -- #{response[:status]} #{location.url}"
       #end
-
-      unless has_file(location.url[:href])
+      unless has_file?(location.url[:href])
         raise LoadError.new "cannot load such url -- #{location.url}"
       end
 
@@ -70,10 +69,24 @@ class RubyCodeStorage
 
       code = retrieve_file(final_url)
       #code = response.text().await.to_s
-
-      evaluate(code, location.filename, final_url)
+      # p code.typeof
+      # p code === JS::Null
+      # p code.nil?
+      # puts code
+      @evaluator.evaluate(code, location.path, final_url)
 
     end
+
+    def cache(result)
+      # TODO final url
+      name = result[:location].filename
+      code = result[:code]
+      save_file(name, code)
+      p result, code
+
+      true
+    end
+
   end
   
 #   # Usage example:
