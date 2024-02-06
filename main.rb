@@ -17,7 +17,8 @@ require 'js/require_remote'
 #     JS::RequireRemote.instance.load(path)
 #   end
 # end
-
+app_path = __FILE__
+$0 = File::basename(app_path, ".rb") if app_path
 
 # TODO: make sure require_relative knows where the basefolder is, so this file does not need to be in the topfolder.
 
