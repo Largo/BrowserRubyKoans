@@ -18,7 +18,6 @@ end
 def getCurrentKoanPath()
     currentKoanNumber = Integer(JS.global.localStorage.getItem("current_koan_number") || 0)
     koanPath = getListOfKoans.select { |path| path.include?($koans[currentKoanNumber]) }&.first
-    
 end
 
 def loadCodeIntoEditor(koanCode)

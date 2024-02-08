@@ -224,26 +224,33 @@ module Neo
       @failure = nil
       @failed_test = nil
       @observations = []
+      @storage = JS.global.localStorage
     end
 
     PROGRESS_FILE_NAME = File.join(File.dirname(__FILE__), '.path_progress')
 
-    def add_progress(prog)
-      return
+    def readProgressFile()
+      @storage.getItem("¥KOANS_PROGRESS")
+    end
+    def writeProgressFile(value)
+      @storage.setItem("¥KOANS_PROGRESS", value)
+    end
 
+    def add_progress(prog)
       @_contents = nil
-      exists = File.exist?(PROGRESS_FILE_NAME)
-      File.open(PROGRESS_FILE_NAME,'a+') do |f|
-        f.print "#{',' if exists}#{prog}"
-      end
+      exists = readProgressFile.to_s != ""
+      # exists = File.exist?(PROGRESS_FILE_NAME)
+      # File.open(PROGRESS_FILE_NAME,'a+') do |f|
+      #   f.print "#{',' if exists}#{prog}"
+      # end
+      content = readProgressFile.to_s + "#{',' if exists}#{prog}"
+      writeProgressFile(content)
     end
 
     def progress
       if @_contents.nil?
-        if File.exist?(PROGRESS_FILE_NAME)
-          File.open(PROGRESS_FILE_NAME,'r') do |f|
-            @_contents = f.read.to_s.gsub(/\s/,'').split(',')
-          end
+        if readProgressFile.to_s != ""
+          @_contents = readProgressFile.to_s.gsub(/\s/,'').split(',')
         else
           @_contents = []
         end
@@ -376,7 +383,7 @@ ENDTEXT
       puts Color.red(indent(failure.message).join)
       puts
       puts "Please meditate on the following code:"
-      puts embolden_first_line_only(indent(find_interesting_lines(failure.backtrace)))
+      puts embolden_first_line_only(indent(find_interesting_lines(failure.backtrace))).first
       puts
     end
 
@@ -398,9 +405,10 @@ ENDTEXT
     end
 
     def find_interesting_lines(backtrace)
+      puts backtrace
       backtrace.reject { |line|
-        line =~ /neo\.rb/
-      }
+      line.include?("neo.rb") or line.include?("/bundle/") or line.include?("eval_async") or line.include?("/src/")
+    }
     end
 
     # Hat's tip to Ara T. Howard for the zen statements from his

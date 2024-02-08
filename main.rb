@@ -21,11 +21,9 @@ module Kernel
     original_require_relative(file)
   rescue LoadError
     file_required_from = caller(2..2).first&.split(':')&.first.to_s
-    if not file_required_from.start_with?("/koans")
-      JS::CodeStorage.instance.load(path, true)
-    else
-      JS::CodeStorage.instance.load(path)
-    end
+    dont_cache = file_required_from.start_with?("/koans") == false || path == "neo"
+
+    JS::CodeStorage.instance.load(path, dont_cache)
   end
 end
 
