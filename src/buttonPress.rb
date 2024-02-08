@@ -58,16 +58,21 @@ def pressButton
         saveCurrentKoan
     end
     $response = ""
-    def puts(*objects)
+    def appendToOutput(*objects)
         objects.each do |text|
-            $response += text.to_s + "\n"
+            $response += text.to_s
         end
+    end
+    def print(*objects)
+        appendToOutput(*objects.map { _1.to_s })
+        super(objects)
+    end
+    def puts(*objects)
+        appendToOutput(*objects.map { _1.to_s + "\n" })
         super(objects)
     end
     def p(*objects)
-        objects.each do |text|
-            $response += text.to_s + "\n"
-        end
+        appendToOutput(*objects.map { _1.to_s + "\n" })
         super(objects)
     end
     loadCurrentKoanIntoEditor()
