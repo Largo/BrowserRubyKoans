@@ -27,7 +27,7 @@ textarea#ruby-code {
 }
 
 /* Styling for the run code button */
-button#run-code {
+button {
     display: block;
     width: 200px;
     padding: 10px;

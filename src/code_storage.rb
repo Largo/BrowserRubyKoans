@@ -1,5 +1,4 @@
 require_relative "./require_remote"
-
 module JS
     
   #   # Usage example:
@@ -10,6 +9,8 @@ module JS
   #   storage.delete_file('example.rb')
   #   puts storage.list_files # => []
   class CodeStorage < RequireRemote
+      ORIGINAL_PREFIX = "#original"
+
       def initialize
         @storage = JS.global.localStorage
         super
@@ -19,12 +20,20 @@ module JS
         @storage.setItem(name, content)
       end
 
+      def save_original_file(name, content)
+        save_file(ORIGINAL_PREFIX + name, content)
+      end
+
       def has_file?(name)
         @storage.getItem(name).nil? === false
       end
     
       def retrieve_file(name)
         @storage.getItem(name).to_s
+      end
+
+      def retrieve_original_file(name)
+        retrieve_file(ORIGINAL_PREFIX + name)
       end
     
       def delete_file(name)
@@ -35,7 +44,7 @@ module JS
         files = []
         (0...@storage.length).each do |i|
           key = @storage.key(i)
-          files << key if key.to_s.end_with?('.rb') # Assuming we only want to list Ruby files
+          files << key if key.start_with?(ORIGINAL_PREFIX) == false and key.to_s.end_with?('.rb') # Assuming we only want to list Ruby files
         end
         files
       end
@@ -56,6 +65,7 @@ module JS
           puts "cache now #{location_url}"
           code = super(relative_feature)[:code]
           save_file(location_path, code)
+          save_original_file(location_path, code)
         end
       end
     end
