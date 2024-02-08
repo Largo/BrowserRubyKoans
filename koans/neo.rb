@@ -432,6 +432,7 @@ ENDTEXT
         end
       end
       puts Color.green(zen_statement)
+      zen_statement
     end
   end
 

@@ -81,7 +81,10 @@ def pressButton
     #yield
     JS::CodeStorage.instance.run_file(getCurrentKoanPath)
 
-    Neo::ThePath.new.walk
+    thePath = Neo::ThePath.new
+    thePath.walk
+    sensei = Neo::Sensei.new
+    $d.getElementById("encourageHeader").innerText = sensei.a_zenlike_statement
     $response
 end
 
