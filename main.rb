@@ -40,6 +40,7 @@ module Kernel
   rescue LoadError
     file_required_from = caller(2..2).first&.split(':')&.first.to_s
     if not file_required_from.start_with?("/koans")
+      puts "dont cache #{path}"
       JS::CodeStorage.instance.load(path, true)
     else
       JS::CodeStorage.instance.load(path)

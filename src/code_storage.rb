@@ -45,15 +45,17 @@ module JS
 
         location = @resolver.get_location(relative_feature)
         location_url = location.url[:href].to_s
+        location_path = location.path.to_s
         # Do not load the same URL twice.
-        return false if @evaluator.evaluated?(location_url)
+        return false if @evaluator.evaluated?(location_path)
 
-        if has_file?(location_url)
-          code = retrieve_file(location_url)
-          @evaluator.evaluate(code, location.path.to_s, location_url)
+        if has_file?(location_path)
+          code = retrieve_file(location_path)
+          @evaluator.evaluate(code, location_path, location_url)
         else
+          puts "cache now #{location_url}"
           code = super(relative_feature)[:code]
-          save_file(location.path.to_s, code)
+          save_file(location_path, code)
         end
       end
     end
