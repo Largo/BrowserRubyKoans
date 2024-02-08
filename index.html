@@ -14,13 +14,16 @@
     <h1>Ruby Koans</h1>
     <h2>Mountains are merely mountains</h2>
     <textarea id="ruby-code" rows="10" cols="50"></textarea><br>
-    <button id="run-code">Medidate</button>
+    <div class="buttons">
+        <button id="run-code">Meditate</button>
+    </div>
+    
     <div id="output"></div>
   
   <script async>
     window.addEventListener('DOMContentLoaded', async function () {
-        var code_area = document.getElementById("ruby-code")
-        var editor = CodeMirror.fromTextArea(code_area, {
+        code_area = document.getElementById("ruby-code")
+        window.editor = CodeMirror.fromTextArea(code_area, {
             lineNumbers: true,
             mode: "text/x-ruby",
             matchBrackets: true,
@@ -28,7 +31,7 @@
         });
         
         function clickRunButton() {
-            editor.save()
+            window.editor.save()
             var output_div = document.getElementById("output");
             var code = `
                 require 'js/require_remote'
@@ -54,5 +57,8 @@
         });
     });
   </script>
+
+  <p>Ruby Koans is released under a Creative Commons, Attribution-NonCommercial-ShareAlike License. @jimweirich
+  <br>In Memory of Jim Weirich (1956 - 2014)</p>
 </body>
 </html>
