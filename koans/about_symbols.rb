@@ -1,4 +1,4 @@
-require_relative("neo")
+
 
 class AboutSymbols < Neo::Koan
   def test_symbols_are_symbols

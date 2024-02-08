@@ -1,5 +1,4 @@
-#!/usr/bin/env ruby
-# -*- ruby -*-
+
 
 require 'rake/clean'
 require 'rake/testtask'

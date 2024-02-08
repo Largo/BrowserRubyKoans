@@ -1,4 +1,4 @@
-require_relative("neo")
+
 
 class AboutHashes < Neo::Koan
   def test_creating_hashes

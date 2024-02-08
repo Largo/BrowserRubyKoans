@@ -1,7 +1,3 @@
-#!/usr/bin/env ruby
-# -*- ruby -*-
-require_relative("neo")
-
 class AboutAsserts < Neo::Koan
 
   # We shall contemplate truth by testing reality, via asserts.

@@ -1,4 +1,4 @@
-require_relative("neo")
+
 
 class AboutObjects < Neo::Koan
   def test_everything_is_an_object

@@ -1,4 +1,4 @@
-require_relative("neo")
+
 
 class AboutBlocks < Neo::Koan
   def method_with_block

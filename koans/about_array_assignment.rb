@@ -1,4 +1,4 @@
-require_relative("neo")
+
 
 class AboutArrayAssignment < Neo::Koan
   def test_non_parallel_assignment

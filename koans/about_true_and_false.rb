@@ -1,4 +1,4 @@
-require_relative("neo")
+
 
 class AboutTrueAndFalse < Neo::Koan
   def truth_value(condition)

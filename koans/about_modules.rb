@@ -1,4 +1,4 @@
-require_relative("neo")
+
 
 class AboutModules < Neo::Koan
   module Nameable

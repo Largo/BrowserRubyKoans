@@ -1,4 +1,4 @@
-require_relative("neo")
+
 
 class AboutControlStatements < Neo::Koan
 

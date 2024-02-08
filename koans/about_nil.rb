@@ -1,4 +1,4 @@
-require_relative("neo")
+
 
 class AboutNil < Neo::Koan
   def test_nil_is_an_object

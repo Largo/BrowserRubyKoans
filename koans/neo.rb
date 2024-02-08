@@ -1,5 +1,4 @@
-#!/usr/bin/env ruby
-# -*- ruby -*-
+
 
 $VERBOSE = nil
 

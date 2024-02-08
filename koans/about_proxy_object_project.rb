@@ -1,4 +1,4 @@
-require_relative("neo")
+
 
 # Project: Create a Proxy Class
 #

@@ -1,4 +1,4 @@
-require_relative("neo")
+
 
 # You need to write the triangle method in the file 'triangle.rb'
 begin
