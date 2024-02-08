@@ -10,6 +10,8 @@ module JS
   #   puts storage.list_files # => []
   class CodeStorage < RequireRemote
       ORIGINAL_PREFIX = "#original"
+      LOCATION_URL_PREFIX = "#LOCATION_URL_PREFIX"
+
 
       def initialize
         @storage = JS.global.localStorage
@@ -32,6 +34,17 @@ module JS
         @storage.getItem(name).to_s
       end
 
+      def run_file(location_path, location_url=nil)
+        if location_url == nil
+          location_url = @storage.getItem(LOCATION_URL_PREFIX + location_path)
+        else
+          @storage.setItem(LOCATION_URL_PREFIX + location_path, location_url)
+        end
+        
+        code = retrieve_file(location_path)
+        @evaluator.evaluate(code, location_path, location_url)
+      end
+
       def retrieve_original_file(name)
         retrieve_file(ORIGINAL_PREFIX + name)
       end
@@ -44,7 +57,7 @@ module JS
         files = []
         (0...@storage.length).each do |i|
           key = @storage.key(i)
-          files << key if key.start_with?(ORIGINAL_PREFIX) == false and key.to_s.end_with?('.rb') # Assuming we only want to list Ruby files
+          files << key if key.start_with?(LOCATION_URL_PREFIX) == false and key.start_with?(ORIGINAL_PREFIX) == false and key.to_s.end_with?('.rb') # Assuming we only want to list Ruby files
         end
         files
       end
@@ -59,8 +72,7 @@ module JS
         return false if @evaluator.evaluated?(location_path)
 
         if has_file?(location_path)
-          code = retrieve_file(location_path)
-          @evaluator.evaluate(code, location_path, location_url)
+          run_file(location_path, location_url)
         else
           puts "cache now #{location_url}"
           code = super(relative_feature)[:code]

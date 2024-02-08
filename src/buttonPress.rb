@@ -73,7 +73,8 @@ def pressButton
     loadCurrentKoanIntoEditor()
     #app_path = getCurrentKoanPath
     #$0 = File::basename(app_path, ".rb") if app_path
-    yield
+    #yield
+    JS::CodeStorage.instance.run_file(getCurrentKoanPath)
 
     Neo::ThePath.new.walk
     $response

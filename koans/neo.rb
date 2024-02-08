@@ -405,7 +405,6 @@ ENDTEXT
     end
 
     def find_interesting_lines(backtrace)
-      puts backtrace
       backtrace.reject { |line|
       line.include?("neo.rb") or line.include?("/bundle/") or line.include?("eval_async") or line.include?("/src/")
     }
