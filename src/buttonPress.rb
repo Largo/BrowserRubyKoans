@@ -1,3 +1,8 @@
+
+def getListOfKoans()
+    storedFiles = JS::CodeStorage.instance.list_files
+end
+
 def pressButton
     $response = ""
     def puts(*objects)

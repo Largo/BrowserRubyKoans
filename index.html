@@ -14,7 +14,7 @@
     <h1>Ruby Koans</h1>
     <h2>Mountains are merely mountains</h2>
     <textarea id="ruby-code" rows="10" cols="50"></textarea><br>
-    <button id="run-code">Run Code</button>
+    <button id="run-code">Medidate</button>
     <div id="output"></div>
   
   <script async>
@@ -37,7 +37,6 @@
                     def require_relative(path) = JS::RequireRemote.instance.load(path)
                 end
                 require_relative 'main.rb'
-                require_relative 'buttonPress.rb'
                 pressButton {
                     ${code_area.value}
                 }

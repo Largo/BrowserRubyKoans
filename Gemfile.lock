@@ -1,10 +1,10 @@
 PATH
-  remote: ruby.wasm/packages/gems/js
+  remote: ../ruby.wasm/packages/gems/js
   specs:
     js (2.5.0)
 
 PATH
-  remote: ruby.wasm
+  remote: ../ruby.wasm
   specs:
     ruby_wasm (2.5.0)
 
