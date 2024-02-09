@@ -1,5 +1,3 @@
-
-
 $VERBOSE = nil
 
 begin
@@ -258,7 +256,7 @@ module Neo
       @_contents
     end
 
-    def observe(step)
+    def observe(step, noProgress = false)
       if step.passed?
         @pass_count += 1
         if @pass_count > progress.last.to_i
@@ -267,7 +265,7 @@ module Neo
       else
         @failed_test = step
         @failure = step.failure
-        add_progress(@pass_count)
+        add_progress(@pass_count) unless noProgress
         @observations << Color.red("#{step.koan_file}##{step.name} has damaged your karma.")
         throw :neo_exit
       end
@@ -536,12 +534,30 @@ ENDTEXT
   end
 
   class ThePath
-    def walk
+    attr_reader :failed_test
+
+    def initialize
+      @failed_test = nil 
+    end
+
+    def walk(noProgress = false)
       sensei = Neo::Sensei.new
       each_step do |step|
-        sensei.observe(step.meditate)
+        sensei.observe(step.meditate, noProgress)
       end
+      @failed_test = sensei.failed_test
       sensei.instruct
+    end
+
+    def snake_case(str)
+      return str.downcase if str.match(/\A[A-Z]+\z/)
+      str.gsub(/([A-Z]+)([A-Z][a-z])/, '\1_\2').
+      gsub(/([a-z])([A-Z])/, '\1_\2').
+      downcase
+    end
+
+    def currentKoanFile()
+      snake_case(@failed_test.koan_file)
     end
 
     def each_step

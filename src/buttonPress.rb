@@ -15,9 +15,21 @@ def getKoanCode(path)
     JS::CodeStorage.instance.retrieve_file(path)
 end
 
+def switchToPassingKoanInStorage()
+    currentKoanFilename = $thePath.currentKoanFile 
+    puts "currentKoanFilename #{currentKoanFilename}"
+    return 0 if currentKoanFilename.to_s == ""
+    currentKoanFilePath = "/koans/" + currentKoanFilename + ".rb"
+    if getListOfKoans.include?(currentKoanFilePath)
+      currentKoan = currentKoanFilePath
+      JS.global.localStorage.setItem("current_koan", currentKoan)
+    end
+end
+
 def getCurrentKoanPath()
-    currentKoanNumber = Integer(JS.global.localStorage.getItem("current_koan_number") || 0)
-    koanPath = getListOfKoans.select { |path| path.include?($koans[currentKoanNumber]) }&.first
+    currentKoan = JS.global.localStorage.getItem("current_koan").to_s
+    currentKoan = $koans[0] if currentKoan == ""
+    koanPath = getListOfKoans.select { |path| path.include? currentKoan }&.first
 end
 
 def loadCodeIntoEditor(koanCode)
@@ -36,7 +48,7 @@ def resetCurrentKoan()
     koanPath = getCurrentKoanPath
     originalKoanCode = JS::CodeStorage.instance.retrieve_original_file(koanPath)
     JS::CodeStorage.instance.save_file(koanPath, originalKoanCode)
-    loadCurrentKoanIntoEditor
+    loadCurrentKoanIntoEditor()
 end
 
 def saveCurrentKoan()
@@ -49,14 +61,25 @@ def changeFile(newFile, &block)
     oldFile = __FILE__
     app_path = newFile
     $0 = File::basename(app_path, ".rb") if app_path
-    $0 = File::basename(app_path, ".rb") if app_path
-    
 end
+
+def compareOriginalTo(code)
+
+end
+
+# def switchKoan(thePath)
+#     currentKoanFilePath = "/koans/" + thePath.getCurrentKoanFile + ".rb"
+#     koanCode = getKoanCode(currentKoanFilePath)
+#     loadCodeIntoEditor(koanCode)
+# end
 
 def pressButton
     if not $window.editor.getValue.to_s.empty?
         saveCurrentKoan
     end
+    $thePath = thePath = Neo::ThePath.new
+    thePath.walk
+    switchToPassingKoanInStorage
     $response = ""
     def appendToOutput(*objects)
         objects.each do |text|
@@ -81,10 +104,13 @@ def pressButton
     #yield
     JS::CodeStorage.instance.run_file(getCurrentKoanPath)
 
-    thePath = Neo::ThePath.new
     thePath.walk
     sensei = Neo::Sensei.new
     $d.getElementById("encourageHeader").innerText = sensei.a_zenlike_statement
+    
+    # if the koans is done this will load the next one
+    loadCurrentKoanIntoEditor()
+
     $response
 end
 
