@@ -17,7 +17,7 @@ module Kernel
     caller_path = caller_locations(1, 1).first.absolute_path || ''
     dir = File.dirname(caller_path)
     file = File.absolute_path(path, dir)
-
+    
     original_require_relative(file)
   rescue LoadError
     file_required_from = caller(2..2).first&.split(':')&.first.to_s

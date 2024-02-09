@@ -6,6 +6,9 @@ module JS
       def evaluate(code, filename, final_url)
         Kernel.eval(code, ::Object::TOPLEVEL_BINDING, filename)
         $LOADED_FEATURES << final_url
+      rescue Exception => e
+        JS.global.console.log(e.backtrace)
+        raise e
       end
 
       def evaluated?(url)

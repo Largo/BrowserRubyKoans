@@ -1,6 +1,6 @@
 # You need to write the triangle method in the file 'triangle.rb'
 begin
-require './triangle'
+require_relative 'triangle.rb'
 rescue LoadError
 end
 
