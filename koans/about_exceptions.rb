@@ -1,5 +1,3 @@
-
-
 class AboutExceptions < Neo::Koan
 
   class MySpecialError < RuntimeError

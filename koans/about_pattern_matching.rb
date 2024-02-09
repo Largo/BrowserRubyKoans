@@ -1,5 +1,3 @@
-
-
 class AboutPatternMatching < Neo::Koan
 
   def test_pattern_may_not_match

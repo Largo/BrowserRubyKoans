@@ -1,5 +1,3 @@
-
-
 C = "top level"
 
 class AboutConstants < Neo::Koan

@@ -1,5 +1,3 @@
-
-
 class AboutSandwichCode < Neo::Koan
 
   def count_lines(file_name)

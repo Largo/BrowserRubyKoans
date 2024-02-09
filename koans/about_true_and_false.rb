@@ -1,5 +1,3 @@
-
-
 class AboutTrueAndFalse < Neo::Koan
   def truth_value(condition)
     if condition

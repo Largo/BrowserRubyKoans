@@ -1,5 +1,3 @@
-
-
 # You need to write the triangle method in the file 'triangle.rb'
 begin
 require './triangle.rb'

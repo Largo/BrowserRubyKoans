@@ -1,5 +1,3 @@
-
-
 class AboutClasses < Neo::Koan
   class Dog
   end
@@ -81,7 +79,6 @@ class AboutClasses < Neo::Koan
       @name = a_name
     end
   end
-
 
   def test_attr_reader_will_automatically_define_an_accessor
     fido = Dog4.new

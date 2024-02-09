@@ -1,5 +1,3 @@
-
-
 class AboutToStr < Neo::Koan
 
   class CanNotBeTreatedAsString

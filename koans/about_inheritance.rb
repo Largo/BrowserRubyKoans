@@ -1,5 +1,3 @@
-
-
 class AboutInheritance < Neo::Koan
   class Dog
     attr_reader :name

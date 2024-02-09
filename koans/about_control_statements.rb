@@ -1,5 +1,3 @@
-
-
 class AboutControlStatements < Neo::Koan
 
   def test_if_then_else_statements

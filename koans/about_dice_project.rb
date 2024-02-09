@@ -1,5 +1,3 @@
-
-
 # Implement a DiceSet Class here:
 #
 # class DiceSet

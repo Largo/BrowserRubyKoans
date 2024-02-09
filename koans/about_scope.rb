@@ -1,5 +1,3 @@
-
-
 class AboutScope < Neo::Koan
   module Jims
     class Dog

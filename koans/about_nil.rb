@@ -1,5 +1,3 @@
-
-
 class AboutNil < Neo::Koan
   def test_nil_is_an_object
     assert_equal __, nil.is_a?(Object), "Unlike NULL in other languages"

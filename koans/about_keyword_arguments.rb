@@ -1,5 +1,3 @@
-
-
 class AboutKeywordArguments < Neo::Koan
 
   def method_with_keyword_arguments(one: 1, two: 'two')

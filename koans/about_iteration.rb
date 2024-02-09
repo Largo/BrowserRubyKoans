@@ -1,5 +1,3 @@
-
-
 class AboutIteration < Neo::Koan
 
   # -- An Aside ------------------------------------------------------

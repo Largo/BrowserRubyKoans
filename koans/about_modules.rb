@@ -1,5 +1,3 @@
-
-
 class AboutModules < Neo::Koan
   module Nameable
     def set_name(new_name)

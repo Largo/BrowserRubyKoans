@@ -1,5 +1,3 @@
-
-
 class AboutClassMethods < Neo::Koan
   class Dog
   end

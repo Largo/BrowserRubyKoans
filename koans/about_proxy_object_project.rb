@@ -1,5 +1,3 @@
-
-
 # Project: Create a Proxy Class
 #
 # In this assignment, create a proxy class (one is started for you

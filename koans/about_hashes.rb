@@ -1,5 +1,3 @@
-
-
 class AboutHashes < Neo::Koan
   def test_creating_hashes
     empty_hash = Hash.new

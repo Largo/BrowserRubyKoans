@@ -1,5 +1,3 @@
-
-
 class AboutObjects < Neo::Koan
   def test_everything_is_an_object
     assert_equal __, 1.is_a?(Object)

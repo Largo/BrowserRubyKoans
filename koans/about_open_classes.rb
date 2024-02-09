@@ -1,5 +1,3 @@
-
-
 class AboutOpenClasses < Neo::Koan
   class Dog
     def bark

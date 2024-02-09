@@ -1,5 +1,3 @@
-
-
 class AboutArrayAssignment < Neo::Koan
   def test_non_parallel_assignment
     names = ["John", "Smith"]

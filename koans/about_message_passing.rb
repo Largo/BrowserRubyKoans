@@ -1,5 +1,3 @@
-
-
 class AboutMessagePassing < Neo::Koan
 
   class MessageCatcher

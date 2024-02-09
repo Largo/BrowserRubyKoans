@@ -1,5 +1,3 @@
-
-
 class AboutArrays < Neo::Koan
   def test_creating_arrays
     empty_array = Array.new
