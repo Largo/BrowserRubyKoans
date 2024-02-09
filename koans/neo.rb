@@ -487,6 +487,7 @@ ENDTEXT
 
       def method_added(name)
         testmethods << name if !tests_disabled? && Koan.test_pattern =~ name.to_s
+        testmethods.uniq!
       end
 
       def end_of_enlightenment
