@@ -385,6 +385,19 @@ ENDTEXT
       puts
     end
 
+    def getLineAndError
+      # /koans/about_strings.rb:25:in `test_use_backslash_for_those_hard_cases'
+      line = find_interesting_lines(failure.backtrace)&.first
+      match_data = line.match(/(.*):(\d+):in `(.*)'/)
+      if match_data
+        path = match_data[1]
+        line_number = match_data[2]
+        method_name = match_data[3]
+      end
+
+      {path:, line_number:, method_name:}
+    end
+
     def embolden_first_line_only(text)
       first_line = true
       text.collect { |t|
@@ -534,19 +547,20 @@ ENDTEXT
   end
 
   class ThePath
-    attr_reader :failed_test
+    attr_reader :failed_test, :sensei
+
 
     def initialize
-      @failed_test = nil 
+      @failed_test = nil
+      @sensei = Neo::Sensei.new 
     end
 
     def walk(noProgress = false)
-      sensei = Neo::Sensei.new
       each_step do |step|
-        sensei.observe(step.meditate, noProgress)
+        @sensei.observe(step.meditate, noProgress)
       end
       @failed_test = sensei.failed_test
-      sensei.instruct
+      @sensei.instruct
     end
 
     def snake_case(str)

@@ -67,11 +67,41 @@ def compareOriginalTo(code)
 
 end
 
+def markError
+    # get the error file / error position
+    # doc.markText
+    # doc.markText(from: {line, ch}, to: {line, ch}, ?options: object) → TextMarker
+    #Can be used to mark a range of text with a specific CSS class name. from and to should be {line, ch} objects. The options parameter is optional. When given, it should be an object that may contain the following configuration options:
+
+    #className: string
+        #Assigns a CSS class to the marked stretch of text.
+    
+    editor = $window.editor
+    line_number = $thePath.sensei.getLineAndError&.fetch(:line_number)&.to_i
+    line_value = editor.getValue&.to_s&.lines&.fetch(line_number - 1)&.chomp
+    if line_number and line_value
+        firstNonWhitespaceCharacter =  line_value.index(/\S/).to_i
+        editor.markText({:line => line_number - 1, :ch => firstNonWhitespaceCharacter}, {:line => line_number - 1, :ch => line_value.length}, {:className => "marker" })
+
+        scrollToLine = line_number + 5
+        scrollToLine = 0 if scrollToLine.negative?
+        editor.scrollIntoView({line: scrollToLine, char: firstNonWhitespaceCharacter}, 200)
+    end
+end
+
 # def switchKoan(thePath)
 #     currentKoanFilePath = "/koans/" + thePath.getCurrentKoanFile + ".rb"
 #     koanCode = getKoanCode(currentKoanFilePath)
 #     loadCodeIntoEditor(koanCode)
 # end
+
+def updateTemplate(sensei)
+    $d.getElementById("encourageHeader").innerText = sensei.a_zenlike_statement
+    $d.getElementById("currentFile").innerText = File.basename(getCurrentKoanPath)
+
+    markError
+
+end
 
 def pressButton
     if not $window.editor.getValue.to_s.empty?
@@ -105,11 +135,13 @@ def pressButton
     JS::CodeStorage.instance.run_file(getCurrentKoanPath)
 
     thePath.walk
-    sensei = Neo::Sensei.new
-    $d.getElementById("encourageHeader").innerText = sensei.a_zenlike_statement
+    sensei = thePath.sensei
+    #sensei = Neo::Sensei.new
+    updateTemplate(sensei)
     
     # if the koans is done this will load the next one
     loadCurrentKoanIntoEditor()
+    updateTemplate(sensei)
 
     $response
 end
