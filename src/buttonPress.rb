@@ -5,7 +5,10 @@ $d = JS.global.document
 saveButton = $d.createElement("button")
 $d.body.querySelector(".buttons").appendChild(saveButton)
 saveButton.innerText = "Beginners Mind"
-saveButton.addEventListener("click") { resetCurrentKoan() }
+saveButton.classList.add("reset")
+saveButton.addEventListener("click") { 
+    resetCurrentKoan() if $window.confirm("Do you want to start over?")   
+ }
 
 def getListOfKoans()
     storedFiles = JS::CodeStorage.instance.list_files
@@ -146,3 +149,10 @@ def pressButton
     $response
 end
 
+$window.addEventListener("keydown") do |event|
+    if (event.altKey && event.key === 'r') 
+        event.preventDefault()
+        #$d.getElementById("run-code").click
+        $window.clickRunButton()
+    end
+end
