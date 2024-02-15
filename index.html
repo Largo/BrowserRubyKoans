@@ -21,46 +21,9 @@
     </div>
     
     <div id="output"></div>
-  
-  <script async>
-    window.addEventListener('DOMContentLoaded', async function () {
-        code_area = document.getElementById("ruby-code")
-        window.editor = CodeMirror.fromTextArea(code_area, {
-            lineNumbers: true,
-            mode: "text/x-ruby",
-            matchBrackets: true,
-            indentUnit: 4
-        });
-        
-        function clickRunButton() {
-            window.editor.save()
-            var output_div = document.getElementById("output");
-            var code = `
-                require 'js/require_remote'
-                module Kernel
-                    alias original_require_relative require_relative
-                    def require_relative(path) = JS::RequireRemote.instance.load(path)
-                end
-                require_relative 'main.rb'
-                pressButton {
-                    ${code_area.value}
-                }
-            `.trim()
-            const text = window.rubyVM.evalAsync(code).then((response) => {
-                output_div.innerHTML = response.toString();
-            }).catch((response) => {
-                output_div.innerHTML = response.toString();
-            });
-
-        }
-        var checkInterval = setInterval(() => window.rubyVM !== undefined && (clearInterval(checkInterval), clickRunButton()), 500);
-        document.getElementById("run-code").addEventListener("click", async (e) => {
-            clickRunButton();
-        });
-    });
-  </script>
-
   <p>Ruby Koans is released under a Creative Commons, Attribution-NonCommercial-ShareAlike License. @jimweirich
   <br>In Memory of Jim Weirich (1956 - 2014)</p>
+
+  <script type="text/ruby" src="main.rb" data-eval="async"></script>
 </body>
 </html>

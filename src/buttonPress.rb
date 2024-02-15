@@ -153,6 +153,6 @@ $window.addEventListener("keydown") do |event|
     if (event.altKey && event.key === 'r') 
         event.preventDefault()
         #$d.getElementById("run-code").click
-        $window.clickRunButton()
+        click_run_button()
     end
 end
