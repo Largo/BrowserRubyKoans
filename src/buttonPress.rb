@@ -87,7 +87,8 @@ def markError
 
         scrollToLine = line_number + 5
         scrollToLine = 0 if scrollToLine.negative?
-        editor.scrollIntoView({line: scrollToLine, char: firstNonWhitespaceCharacter}, 200)
+        #editor.scrollIntoView({line: scrollToLine, char: firstNonWhitespaceCharacter}, 200)
+        editor.scrollToRange({:line => line_number - 1, :ch => firstNonWhitespaceCharacter}, {:line => line_number - 1, :ch => line_value.length})
     end
 end
 
@@ -98,10 +99,16 @@ end
 # end
 
 def updateTemplate(sensei)
-    temp = $response.clone # dont output anything
-    $d.getElementById("encourageHeader").innerText = sensei.a_zenlike_statement
+    #temp = $response.clone # dont output anything
+    $d.getElementById("encourageHeader").innerText = sensei.a_zenlike_statement(print: false)
     $d.getElementById("currentFile").innerText = File.basename(getCurrentKoanPath)
-    $response = temp
+    guide = sensei.guide_through_error_data
+    $d.getElementById("zenMasterText").innerHTML = "#{guide[:answers]}, #{guide[:failureMessage]}, #{guide[:meditate]}, #{guide[:code]}"
+
+    #$response = temp
+
+    #encourageData
+    #guide_through_error_data
 
     markError
 end
@@ -139,7 +146,6 @@ def pressButton
 
     thePath.walk
     sensei = thePath.sensei
-    #sensei = Neo::Sensei.new
     updateTemplate(sensei)
     
     # if the koans is done this will load the next one

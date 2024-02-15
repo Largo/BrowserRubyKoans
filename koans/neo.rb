@@ -356,6 +356,21 @@ ENDTEXT
         puts completed
     end
 
+    def encourageData
+      if ((recents = progress.last(5)) && recents.size == 5 && recents.uniq.size == 1)
+        progressText = "I sense frustration. Do not be afraid to ask for help."
+      elsif progress.last(2).size == 2 && progress.last(2).uniq.size == 1
+        progressText = "Do not lose hope."
+      elsif progress.last.to_i > 0
+        progressText = "You are progressing. Excellent. #{progress.last} completed."
+      end
+
+      {master: "The Master says:", 
+       enlightenment: "You have not yet reached enlightenment.", 
+       progressText: progressText 
+      }
+    end
+
     def encourage
       puts
       puts "The Master says:"
@@ -377,6 +392,15 @@ ENDTEXT
       puts "Please meditate on the following code:"
       puts embolden_first_line_only(indent(find_interesting_lines(failure.backtrace))).first
       puts
+    end
+
+    def guide_through_error_data
+      answers = "The answers you seek..."
+      failureMessage = indent(failure.message).join
+      meditate = "Please meditate on the following code:"
+      code =  embolden_first_line_only(indent(find_interesting_lines(failure.backtrace))).first
+
+      {answers:, failureMessage:, meditate:, code:}
     end
 
     def getLineAndError
@@ -417,7 +441,7 @@ ENDTEXT
 
     # Hat's tip to Ara T. Howard for the zen statements from his
     # metakoans Ruby Quiz (http://rubyquiz.com/quiz67.html)
-    def a_zenlike_statement
+    def a_zenlike_statement(print: true)
       if !failed?
         zen_statement =  "Mountains are again merely mountains"
       else
@@ -436,7 +460,7 @@ ENDTEXT
           "things are not what they appear to be: nor are they otherwise"
         end
       end
-      puts Color.green(zen_statement)
+      puts Color.green(zen_statement) if print
       zen_statement
     end
   end

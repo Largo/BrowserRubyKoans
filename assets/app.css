@@ -83,6 +83,27 @@ div#output {
     color: #fff;
 }
 
+details {
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    padding: 0.5em 0.5em 0;
+  }
+  
+  summary {
+    font-weight: bold;
+    margin: -0.5em -0.5em 0;
+    padding: 0.5em;
+  }
+  
+  details[open] {
+    padding: 0.5em;
+  }
+  
+  details[open] summary {
+    border-bottom: 1px solid #aaa;
+    margin-bottom: 0.5em;
+  }
+  
 
 .marker {
     background-color: rgba(0,122,204, 0.2);
@@ -103,3 +124,49 @@ h1, h2 {
 h3 {
     text-transform: uppercase;
 }
+
+
+/*** zenmaster **/
+#zenMasterChat {
+    display: flex;
+    align-items: center;
+    background-color: #f0f0f0;
+    border-radius: 15px;
+    padding: 10px;
+    max-width: 500px;
+    margin: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease-out;
+  }
+  
+  .chat-avatar img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+  }
+  
+  .chat-message p {
+    margin: 0;
+    color: #333;
+    font-family: Arial, sans-serif;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+
+
+
+
+
+
+/** zenmaster end */
