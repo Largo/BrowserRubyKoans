@@ -23,7 +23,7 @@ $koans = [
   'about_triangle_project_2',
   'about_iteration',
   'about_blocks',
-  'about_sandwich_code',
+ # 'about_sandwich_code',
   'about_scoring_project',
   'about_classes',
   'about_open_classes',

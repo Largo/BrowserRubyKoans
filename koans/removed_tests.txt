@@ -1,0 +1,50 @@
+# Temporarily removed tests
+to be reintroduced in version 2
+
+about_to_str  
+  
+  def test_normally_objects_cannot_be_used_where_strings_are_expected
+    assert_raise(___) do
+      File.exist?(CanNotBeTreatedAsString.new)
+    end
+  end
+
+
+  def test_to_str_allows_objects_to_be_treated_as_strings
+    assert_equal __, File.exist?(CanBeTreatedAsString.new)
+  end
+
+
+  # about sandwhich code
+
+
+
+# about iteration
+
+    def test_all_iteration_methods_work_on_any_collection_not_just_arrays
+    # Ranges act like a collection
+    result = (1..3).map { |item| item + 10 }
+    assert_equal __, result
+
+    # Files act like a collection of lines
+    File.open("example_file.txt") do |file|
+      upcase_lines = file.map { |line| line.strip.upcase }
+      assert_equal __, upcase_lines
+    end
+
+    # NOTE: You can create your own collections that work with each,
+    # map, select, etc.
+  end
+
+  # Bonus Question:  In the previous koan, we saw the construct:
+  #
+  #   File.open(filename) do |file|
+  #     # code to read 'file'
+  #   end
+  #
+  # Why did we do it that way instead of the following?
+  #
+  #   file = File.open(filename)
+  #   # code to read 'file'
+  #
+  # When you get to the "AboutSandwichCode" koan, recheck your answer.
