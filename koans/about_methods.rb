@@ -114,15 +114,6 @@ class AboutMethods < Neo::Koan
     assert_equal __, my_private_method
   end
 
-  if before_ruby_version("2.7")   # https://github.com/edgecase/ruby_koans/issues/12
-    def test_calling_private_methods_with_an_explicit_receiver
-      exception = assert_raise(___) do
-        self.my_private_method
-      end
-      assert_match /__/, exception.message
-    end
-  end
-
   # ------------------------------------------------------------------
 
   class Dog
