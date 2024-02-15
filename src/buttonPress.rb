@@ -20,7 +20,7 @@ end
 
 def switchToPassingKoanInStorage()
     currentKoanFilename = $thePath.currentKoanFile 
-    puts "currentKoanFilename #{currentKoanFilename}"
+    #puts "currentKoanFilename #{currentKoanFilename}"
     return 0 if currentKoanFilename.to_s == ""
     currentKoanFilePath = "/koans/" + currentKoanFilename + ".rb"
     if getListOfKoans.include?(currentKoanFilePath)
@@ -47,7 +47,6 @@ def loadCurrentKoanIntoEditor()
 end
 
 def resetCurrentKoan()
-    puts "resetcurrentkoan"
     koanPath = getCurrentKoanPath
     originalKoanCode = JS::CodeStorage.instance.retrieve_original_file(koanPath)
     JS::CodeStorage.instance.save_file(koanPath, originalKoanCode)
@@ -99,11 +98,12 @@ end
 # end
 
 def updateTemplate(sensei)
+    temp = $response.clone # dont output anything
     $d.getElementById("encourageHeader").innerText = sensei.a_zenlike_statement
     $d.getElementById("currentFile").innerText = File.basename(getCurrentKoanPath)
+    $response = temp
 
     markError
-
 end
 
 def pressButton

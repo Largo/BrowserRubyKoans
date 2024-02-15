@@ -74,7 +74,7 @@ module JS
         if has_file?(location_path)
           run_file(location_path, location_url)
         else
-          puts "cache now #{location_url}"
+          #puts "cache now #{location_url}"
           code = super(relative_feature)[:code]
           save_file(location_path, code)
           save_original_file(location_path, code)

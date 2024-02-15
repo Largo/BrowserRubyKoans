@@ -11,6 +11,22 @@ body {
 h1 {
     color: #333;
     text-align: center;
+    margin: 0;
+}
+
+header {
+    font-size: 13px;
+}
+
+#enso { 
+    width: 40px;
+    height: auto;
+} 
+
+header .topHeader, header .bottomHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
 }
 
 /* Styling for the textarea */
@@ -27,8 +43,9 @@ textarea#ruby-code {
     resize: vertical; /* Allows vertical resizing, might be useful for longer code */
 }
 
-.CodeMirror {
-    height: 400px !important;
+body .CodeMirror {
+    height: 400px;
+    resize: both;
 }
 
 /* Styling for the run code button */
@@ -60,11 +77,15 @@ div#output {
     min-height: 100px; /* Ensures the div is visible even when empty */
     font-family: 'Courier New', Courier, monospace;
     white-space: pre-wrap; /* Maintains formatting for whitespace and newlines */
+    overflow-wrap: break-word;
+    line-height: 27px;
+    background: #2d2d30;
+    color: #fff;
 }
 
 
 .marker {
-    background-color: red;
+    background-color: rgba(0,122,204, 0.2);
 }
 
 .buttons {
@@ -73,4 +94,12 @@ div#output {
 
 button.reset {
     background-color: red;
+}
+
+h1, h2 {
+   color: #e70800;
+}
+
+h3 {
+    text-transform: uppercase;
 }

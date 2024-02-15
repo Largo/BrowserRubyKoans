@@ -90,12 +90,12 @@ module Neo
     COLORS = {
       :clear   => 0,  # Typically, clear isn't represented with a color. It might mean resetting to default.
       :black   => '#000000', 
-      :red     => '#FF0000',
-      :green   => '#00FF00',
+      :red     => '#FF6868',
+      :green   => '#007acc',
       :yellow  => '#FFFF00',
-      :blue    => '#0000FF',
+      :blue    => '#007acc',
       :magenta => '#FF00FF',
-      :cyan    => '#00FFFF',
+      :cyan    => '#1AFFFF',
   }
 
     module_function
@@ -260,6 +260,7 @@ module Neo
         @failure = step.failure
         add_progress(@pass_count) unless noProgress
         @observations << Color.red("#{step.koan_file}##{step.name} has damaged your karma.")
+        @observations.uniq!
         throw :neo_exit
       end
     end

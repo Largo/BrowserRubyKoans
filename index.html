@@ -9,15 +9,30 @@
     <link rel="stylesheet" href="assets/codemirror.css">
     <script src="assets/codemirror.js"></script>
     <script src="assets/codemirror-ruby.js"></script>
-</head>
+    <link rel="icon" href="assets/enso.svg">
+  </head>
 <body>
-    <h1>Ruby Koans</h1>
-    <h2 id="encourageHeader">Mountains are merely mountains</h2>
+    <header>
+      <div class="topHeader">
+        <h1>Ruby Koans - <span id="encourageHeader">Mountains are merely mountains</span></h1>
+        <img id="enso" src="assets/enso.svg" alt="enso">
+        
+      </div>
 
-    <h3 id="currentFile"></h3>
-    <textarea id="ruby-code" rows="10" cols="50"></textarea><br>
+        <div class="bottomHeader">
+          <h2 id="encourageHeader"></h2>
+          <h3 id="currentFile"></h3>
+        </div>
+      
+
+    </header>
+   
+    <!-- <select title="File Selector" name="" id="">
+        <option value=""></option>
+    </select> -->
+    <textarea title="code" id="ruby-code" rows="10" cols="50"></textarea><br>
     <div class="buttons">
-        <button id="run-code">Meditate</button>
+        <button id="run-code" type="button">Meditate</button>
     </div>
     
     <div id="output"></div>
