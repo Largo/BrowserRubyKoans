@@ -1,3 +1,6 @@
+app_path = __FILE__
+$0 = File::basename(app_path, ".rb") if app_path
+
 require 'js'
 require 'js/require_remote'
 
@@ -30,54 +33,7 @@ module Kernel
   end
 end
 
-app_path = __FILE__
-$0 = File::basename(app_path, ".rb") if app_path
-
-
-# TODO: make sure require_relative knows where the basefolder is, so this file does not need to be in the topfolder.
-
- # Wait for the DOM to be fully loaded
-  #JS.global.document.addEventListener('DOMContentLoaded') do
-    # Access the code area and set up the CodeMirror editor
-    code_area = JS.global.document.getElementById("ruby-code")
-    @window = JS.global
-    @window.editor = @window[:CodeMirror].fromTextArea(code_area, {
-      lineNumbers: true,
-      mode: "text/x-ruby",
-      matchBrackets: true,
-      indentUnit: 4
-    })
-    
-    define_method :click_run_button do
-      code_area = JS.global.document.getElementById("ruby-code")
-      @window.editor.save
-      output_div = JS.global.document.getElementById("output")
-      code = <<-RUBY
-        pressButton {
-          #{code_area.value}
-        }
-      RUBY
-
-      begin
-        output_div.innerHTML = Kernel.eval(code.strip)
-      rescue => e
-        output_div.innerHTML = e.to_s
-      end
-    end
-
-    # check_interval = JS.global.setInterval(lambda {
-    #   if @window.rubyVM != undefined
-    #     JS.global.clearInterval(check_interval)
-    #     click_run_button
-    #   end
-    # }, 500)
-
-    # Set up the event listener for the run code button
-    JS.global.document.getElementById("run-code").addEventListener("click") do |e|
-      click_run_button
-    end
- # end
-
 require_relative "src/buttonPress"
-firstTimeRun
-#click_run_button()
+k = KoanWeb.instance()
+
+k.firstTimeRun
