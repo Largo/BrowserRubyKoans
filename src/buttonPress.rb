@@ -105,13 +105,19 @@ def updateTemplate(sensei)
     $d.getElementById("currentFile").innerText = File.basename(getCurrentKoanPath)
     guide = sensei.guide_through_error_data
     $d.querySelector("#zenMasterChat").tap do |e| 
-        e.querySelector("#zenMasterText").innerHTML = "#{guide[:answers]} <br> #{guide[:failureMessage]}, #{guide[:meditate]} <br> #{guide[:code]}"
+        masterText = "#{guide[:answers]} <br> #{guide[:meditate]} <br> #{guide[:code]} <br> #{guide[:failureMessage]}"
+
+        data = sensei.encourageData
+        masterText += "<br><br> #{data[:progressText]}"
+    
+        e.querySelector("#zenMasterText").innerHTML = masterText
+        
+        
         e.style.display = "flex"
     end
 
     #$response = temp
 
-    #encourageData
     #guide_through_error_data
 
     markError
