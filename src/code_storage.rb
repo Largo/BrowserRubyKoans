@@ -76,6 +76,7 @@ module JS
         else
           #puts "cache now #{location_url}"
           code = super(relative_feature)[:code]
+          @storage.setItem(LOCATION_URL_PREFIX + location_path, location_url)
           save_file(location_path, code)
           save_original_file(location_path, code)
         end
