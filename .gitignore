@@ -1,6 +1,7 @@
 build
 rubies
-*.wasm
+ruby.wasm/
+#*.wasm
 notes
 docker-compose.yaml
 default.conf
