@@ -3,3 +3,4 @@ rubies
 *.wasm
 notes
 docker-compose.yaml
+default.conf
