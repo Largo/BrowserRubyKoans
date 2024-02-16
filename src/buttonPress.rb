@@ -86,9 +86,9 @@ def markError
         firstNonWhitespaceCharacter =  line_value.index(/\S/).to_i
         editor.markText({:line => line_number - 1, :ch => firstNonWhitespaceCharacter}, {:line => line_number - 1, :ch => line_value.length}, {:className => "marker" })
 
-        #scrollToLine = line_number + 5
-        #scrollToLine = 0 if scrollToLine.negative?
-        #editor.scrollIntoView({line: scrollToLine, char: firstNonWhitespaceCharacter}, 200)
+        scrollToLine = line_number + 5
+        scrollToLine = 0 if scrollToLine.negative?
+        editor.scrollIntoView({line: scrollToLine, char: firstNonWhitespaceCharacter}, 200)
         #editor.scrollToRange({:line => line_number - 1, :ch => firstNonWhitespaceCharacter}, {:line => line_number - 1, :ch => line_value.length})
     end
 end
