@@ -9,6 +9,7 @@ saveButton.classList.add("reset")
 saveButton.addEventListener("click") { 
     resetCurrentKoan() if $window.confirm("Do you want to start over?")   
  }
+$d.querySelector(".spinner").style.display = "none";
 
 def getListOfKoans()
     storedFiles = JS::CodeStorage.instance.list_files
