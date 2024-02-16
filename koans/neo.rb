@@ -251,7 +251,7 @@ module Neo
 
     def observe(step, noProgress = false)
       if step.passed?
-        @pass_count += 1
+        @pass_count = step.step_count
         if @pass_count > progress.last.to_i
           @observations << Color.green("#{step.koan_file}##{step.name} has expanded your awareness.")
         end
@@ -367,7 +367,7 @@ ENDTEXT
 
       {master: "The Master says:", 
        enlightenment: "You have not yet reached enlightenment.", 
-       progressText: progressText 
+       progressText: progressText
       }
     end
 
@@ -476,6 +476,18 @@ ENDTEXT
       @koan_count = koan_count
       @step_count = step_count
       @koan_file = koan_file
+    end
+
+    def inspect
+      [@name,
+      @failure,
+      @koan_count,
+      @step_count,
+      @koan_file].to_s
+    end
+
+    def to_s
+      inspect
     end
 
     def passed?

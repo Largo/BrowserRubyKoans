@@ -84,8 +84,8 @@ class KoanWeb
         return 0 if currentKoanFilename.to_s == ""
         currentKoanFilePath = "/koans/" + currentKoanFilename + ".rb"
         if getListOfKoans.include?(currentKoanFilePath)
-        currentKoan = currentKoanFilePath
-        JS.global.localStorage.setItem("current_koan", currentKoan)
+            currentKoan = currentKoanFilePath
+            JS.global.localStorage.setItem("current_koan", currentKoan)
         end
     end
 
@@ -127,7 +127,7 @@ class KoanWeb
             firstNonWhitespaceCharacter =  line_value.index(/\S/).to_i
             editor.markText({:line => line_number - 1, :ch => firstNonWhitespaceCharacter}, {:line => line_number - 1, :ch => line_value.length}, {:className => "marker" })
 
-            scrollToLine = line_number + 5
+            scrollToLine = line_number 
             scrollToLine = 0 if scrollToLine.negative?
             editor.scrollIntoView({line: scrollToLine, char: firstNonWhitespaceCharacter}, 200)
             #editor.scrollToRange({:line => line_number - 1, :ch => firstNonWhitespaceCharacter}, {:line => line_number - 1, :ch => line_value.length})
@@ -150,13 +150,9 @@ class KoanWeb
             data = sensei.encourageData
             masterText += "<br><br> #{data[:progressText]}"
         
-            e.querySelector("#zenMasterText").innerHTML = masterText
-            
-            
+            e.querySelector("#zenMasterText").innerHTML = masterText      
             e.style.display = "flex"
         end
-
-        markError
     end
 
     def firstTimeRun
@@ -200,7 +196,7 @@ class KoanWeb
             saveCurrentKoan
         end
         $thePath = thePath = Neo::ThePath.new
-        thePath.walk
+        thePath.walk(false)
         switchToPassingKoanInStorage
 
         overridePutMethods
@@ -213,8 +209,11 @@ class KoanWeb
         updateTemplate(sensei)
         
         # if the koans is done this will load the next one
+        switchToPassingKoanInStorage
         loadCurrentKoanIntoEditor()
         updateTemplate(sensei)
+
+        markError
 
         resetPutMethods
 
