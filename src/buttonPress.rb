@@ -117,6 +117,10 @@ def updateTemplate(sensei)
     markError
 end
 
+def firstTimeRun
+    loadCurrentKoanIntoEditor
+end
+
 def pressButton
     if not $window.editor.getValue.to_s.empty?
         saveCurrentKoan

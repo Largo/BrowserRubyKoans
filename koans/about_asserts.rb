@@ -1,3 +1,9 @@
+# Learn Ruby With the Ruby Koans now running in Webassembly on your Browser!
+# The Koans walk you along the path to enlightenment in order to learn Ruby.
+# The goal is to learn the Ruby language, syntax, structure, and some common functions and libraries.
+# Your task is to fix the tests while under guidance by the Sensei.
+# Click mediate to check your answer or press alt + r
+
 class AboutAsserts < Neo::Koan
 
   # We shall contemplate truth by testing reality, via asserts.

@@ -55,7 +55,7 @@ body .CodeMirror {
 /* Styling for the run code button */
 button {
     display: block;
-    width: 200px;
+    min-width: 100px;
     padding: 10px;
     margin: 20px auto;
     color: #fff;
@@ -94,6 +94,7 @@ details {
   }
   
   summary {
+    cursor: pointer;
     font-weight: bold;
     margin: -0.5em -0.5em 0;
     padding: 0.5em;
@@ -118,7 +119,7 @@ details {
 }
 
 button.reset {
-    background-color: red;
+    background-color: rgb(124, 63, 63);
 }
 
 h1, h2 {
@@ -127,6 +128,11 @@ h1, h2 {
 
 h3 {
     text-transform: uppercase;
+}
+
+footer {
+    margin-top: 60px;
+    border-top: solid #2d2d30
 }
 
 /**** spinner */
@@ -165,14 +171,17 @@ h3 {
 /*** zenmaster **/
 #zenMasterChat {
     display: none;
-    align-items: center;
-    background-color: #f0f0f0;
-    border-radius: 15px;
-    padding: 10px;
+    align-items: center; 
     max-width: 700px;
     margin: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     animation: fadeIn 1s ease-out;
+  }
+
+  .chat-message {
+    background-color: #f0f0f0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    padding: 10px;
   }
   
   .chat-avatar img {
