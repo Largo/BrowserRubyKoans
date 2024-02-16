@@ -85,10 +85,10 @@ def markError
         firstNonWhitespaceCharacter =  line_value.index(/\S/).to_i
         editor.markText({:line => line_number - 1, :ch => firstNonWhitespaceCharacter}, {:line => line_number - 1, :ch => line_value.length}, {:className => "marker" })
 
-        scrollToLine = line_number + 5
-        scrollToLine = 0 if scrollToLine.negative?
+        #scrollToLine = line_number + 5
+        #scrollToLine = 0 if scrollToLine.negative?
         #editor.scrollIntoView({line: scrollToLine, char: firstNonWhitespaceCharacter}, 200)
-        editor.scrollToRange({:line => line_number - 1, :ch => firstNonWhitespaceCharacter}, {:line => line_number - 1, :ch => line_value.length})
+        #editor.scrollToRange({:line => line_number - 1, :ch => firstNonWhitespaceCharacter}, {:line => line_number - 1, :ch => line_value.length})
     end
 end
 
@@ -103,7 +103,10 @@ def updateTemplate(sensei)
     $d.getElementById("encourageHeader").innerText = sensei.a_zenlike_statement(print: false)
     $d.getElementById("currentFile").innerText = File.basename(getCurrentKoanPath)
     guide = sensei.guide_through_error_data
-    $d.getElementById("zenMasterText").innerHTML = "#{guide[:answers]}, #{guide[:failureMessage]}, #{guide[:meditate]}, #{guide[:code]}"
+    $d.querySelector("#zenMasterChat").tap do |e| 
+        e.querySelector("#zenMasterText").innerHTML = "#{guide[:answers]} <br> #{guide[:failureMessage]}, #{guide[:meditate]} <br> #{guide[:code]}"
+        e.style.display = "flex"
+    end
 
     #$response = temp
 
