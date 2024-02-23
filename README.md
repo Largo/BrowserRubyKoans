@@ -1,10 +1,16 @@
 # Ruby Koans online with Ruby.wasm
 
 
+"The Ruby Koans walk you along the path to enlightenment in order to learn Ruby. The goal is to learn the Ruby language, syntax, structure, and some common functions and libraries." - [RubyKoans.com](https://rubykoans.com)
+[Edgecase Ruby Koans](https://github.com/edgecase/ruby_koans)
+This project brings the RubyKoans to the browser.
+
+## About ruby.wasm
+
 [See the following on how to get started with Ruby.wasm](https://github.com/Largo/ruby.wasm-quickstart)
 This project uses my fork and changes on Ruby.wasm. Mostly improvements to the JS Bridge, which allow us to use the WebAPI in manner natural to rubyists. I implemented  dot syntax for accessing JavaScript objects and conversions from JavaScript objects to Ruby objects. 
 
-# references
+### references
 
 - [ruby.wasm](https://github.com/ruby/ruby.wasm)
 - [Based on work by Yuta Saito et al](https://github.com/kateinoigakukun)
@@ -13,7 +19,7 @@ This project uses my fork and changes on Ruby.wasm. Mostly improvements to the J
 - [JavaScript Files](https://github.com/ruby/ruby.wasm/tree/main/packages/npm-packages/ruby-3.3-wasm-wasi)
 - see contributing.md in ruby.wasm repo
 
-## GPT to convert JavaScript to Ruby code:
+### GPT to convert JavaScript to Ruby code:
 
 [ChatGPT - Ruby.wasm JavaScript Helper](https://chat.openai.com/g/g-BrA8GwiLU-ruby-wasm-javascript-helper)
 
