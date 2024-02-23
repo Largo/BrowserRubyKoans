@@ -135,6 +135,10 @@ footer {
     border-top: solid #2d2d30
 }
 
+a {
+  color: #e70800;
+}
+
 /**** spinner */
 
 .spinner {
